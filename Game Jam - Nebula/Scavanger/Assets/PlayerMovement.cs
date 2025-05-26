@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,36 +16,50 @@ public class PlayerMovement : MonoBehaviour
     public bool playerIsAlive = true;
     private bool isDashing = false;
 
+    private Vector2 direction;
+    private Vector2 inputDirection;
+
 
 
     void Update()
     {
+        //rotates to face the mouse
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+        direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+        transform.up = direction;
+
         // --- Toggle Dash ---
         if (Input.GetKeyDown(KeyCode.Q))
         {
             isDashing = !isDashing;
         }
-
-        // --- horizontal Movement input ---
-        float moveXDirection = 0f;
-        if (Input.GetKey(KeyCode.W)) moveXDirection = 1f;
-        if (Input.GetKey(KeyCode.S)) moveXDirection = -1f;
-
         // --- speed ---
         float currentXSpeed = isDashing ? dashSpeed : flightSpeed;
-
-        // --- Apply movement ---
-        myRigidbody.linearVelocity = new Vector2(moveXDirection * currentXSpeed, myRigidbody.linearVelocity.y);
-
-        // --- Vertical Movement input ---
-        float moveYDirection = 0f;
-        if (Input.GetKey(KeyCode.D)) moveYDirection = 1f;
-        if (Input.GetKey(KeyCode.A)) moveYDirection = -1f;
-
-        // --- speed ---
         float currentYSpeed = isDashing ? dashSpeed : flightSpeed;
 
         // --- Apply movement ---
-        myRigidbody.linearVelocity = new Vector2(moveYDirection * currentYSpeed, myRigidbody.linearVelocity.x);
+
+        Movement(currentXSpeed, currentYSpeed);
+    }
+
+    void Movement(float currentXSpeed, float currentYSpeed)
+    {
+        Vector2 inputDir = Vector2.zero;
+
+        if (Input.GetKey(KeyCode.A)) inputDir.x -= 1; // Left
+        else if (Input.GetKey(KeyCode.D)) inputDir.x += 1; // Right
+        if (Input.GetKey(KeyCode.W)) inputDir.y += 1; // Forward
+        else if (Input.GetKey(KeyCode.S)) inputDir.y -= 1; // Backward
+        Debug.Log(inputDir);
+
+        float angle = transform.eulerAngles.z;
+
+        // Rotate inputDir by head angle
+        Vector2 direction = Quaternion.Euler(0, 0, angle) * inputDir;
+        direction.Normalize();
+
+        myRigidbody.linearVelocity = new Vector2(direction.x * currentXSpeed, direction.y * currentYSpeed);
     }
 }
