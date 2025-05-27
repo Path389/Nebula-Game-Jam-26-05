@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKey(KeyCode.D)) inputDir.x += 1; // Right
         if (Input.GetKey(KeyCode.W)) inputDir.y += 1; // Forward
         else if (Input.GetKey(KeyCode.S)) inputDir.y -= 1; // Backward
-        Debug.Log(inputDir);
+  
 
         float angle = transform.eulerAngles.z;
 
