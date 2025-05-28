@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 2837189948079851440}
   - component: {fileID: 3254882526101584489}
   - component: {fileID: 5450990644545333151}
-  - component: {fileID: 2455226335370476302}
   - component: {fileID: 2254076228441865418}
+  - component: {fileID: 2455226335370476302}
+  - component: {fileID: 1240182723892635423}
+  - component: {fileID: 2848828247768508941}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -136,26 +138,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2455226335370476302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8818618740962007886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2567c6c0f50f8de4f9537db1df55aa92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flightSpeed: 0.5
-  dashSpeed: 2
-  playerHealth: 10
-  myAnimator: {fileID: 0}
-  myRigidbody: {fileID: 2254076228441865418}
-  mySpriteRenderer: {fileID: 5450990644545333151}
-  collisionDetector: {fileID: 3254882526101584489}
-  playerIsAlive: 1
 --- !u!50 &2254076228441865418
 Rigidbody2D:
   serializedVersion: 5
@@ -183,3 +165,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2455226335370476302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818618740962007886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2567c6c0f50f8de4f9537db1df55aa92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flightSpeed: 0.5
+  dashSpeed: 2
+  playerHealth: 10
+  myAnimator: {fileID: 0}
+  myRigidbody: {fileID: 2254076228441865418}
+  mySpriteRenderer: {fileID: 5450990644545333151}
+  playerInventory: {fileID: 1240182723892635423}
+  collisionDetector: {fileID: 3254882526101584489}
+  playerIsAlive: 1
+--- !u!114 &1240182723892635423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818618740962007886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 952f1ae75b436dc4b9e8310012cbe528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentAmmo: 0
+  SpeedLvl: 1
+  AttackLvl: 0
+  AttackSpeedLvl: 0
+  InventoryLvl: 0
+  HealthLvl: 0
+--- !u!114 &2848828247768508941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818618740962007886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6737cdbee4a52dd459169792bb55d56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

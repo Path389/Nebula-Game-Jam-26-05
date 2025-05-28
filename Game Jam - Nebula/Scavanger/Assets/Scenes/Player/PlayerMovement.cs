@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator myAnimator;
     public Rigidbody2D myRigidbody;
     public SpriteRenderer mySpriteRenderer;
+    public PlayerInventory playerInventory;
 
     public BoxCollider2D collisionDetector; // Ground check using a collider
 
@@ -17,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashing = false;
 
     private Vector2 direction;
-    private Vector2 inputDirection;
+    
 
 
 
@@ -36,8 +37,8 @@ public class PlayerMovement : MonoBehaviour
             isDashing = !isDashing;
         }
         // --- speed ---
-        float currentXSpeed = isDashing ? dashSpeed : flightSpeed;
-        float currentYSpeed = isDashing ? dashSpeed : flightSpeed;
+        float currentXSpeed = isDashing ? dashSpeed : flightSpeed * playerInventory.SpeedLvl;
+        float currentYSpeed = isDashing ? dashSpeed : flightSpeed * playerInventory.SpeedLvl;
 
         // --- Apply movement ---
 
