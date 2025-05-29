@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool isUsingMouseRelativeMovement = true;
     public float flightSpeed = 0.5f;
     public float dashSpeed = 2f;
     public float playerHealth = 10f;
@@ -24,6 +25,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
+        //toggles movement mode
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            isUsingMouseRelativeMovement = !isUsingMouseRelativeMovement;
+        }
+
+
         //rotates to face the mouse
         Vector3 mousePosition = Input.mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -41,8 +50,8 @@ public class PlayerMovement : MonoBehaviour
         float currentYSpeed = isDashing ? dashSpeed : flightSpeed * playerInventory.SpeedLvl;
 
         // --- Apply movement ---
-
         Movement(currentXSpeed, currentYSpeed);
+
     }
 
     void Movement(float currentXSpeed, float currentYSpeed)
@@ -53,14 +62,24 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKey(KeyCode.D)) inputDir.x += 1; // Right
         if (Input.GetKey(KeyCode.W)) inputDir.y += 1; // Forward
         else if (Input.GetKey(KeyCode.S)) inputDir.y -= 1; // Backward
-  
+
+        Vector2 direction;
 
         float angle = transform.eulerAngles.z;
 
-        // Rotate inputDir by head angle
-        Vector2 direction = Quaternion.Euler(0, 0, angle) * inputDir;
-        direction.Normalize();
+        if (isUsingMouseRelativeMovement)
+        {
+            //moves in relation to the direction the ship is facing (the mouse)
+            direction = Quaternion.Euler(0, 0, angle) * inputDir;
+            direction.Normalize();
 
-        myRigidbody.linearVelocity = new Vector2(direction.x * currentXSpeed, direction.y * currentYSpeed);
+            myRigidbody.linearVelocity = new Vector2(direction.x * currentXSpeed, direction.y * currentYSpeed);
+        }
+
+        else
+        {
+            //moves in the cardinal directions
+            myRigidbody.linearVelocity = new Vector2(inputDir.x * currentXSpeed, inputDir.y * currentYSpeed);
+        }
     }
 }
